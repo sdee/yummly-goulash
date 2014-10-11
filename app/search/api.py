@@ -7,6 +7,7 @@ class SearchResults(object):
 
   def __init__(self, matches):
     self.matches = matches
+    self.num_matches = len(matches)
     self.cnt = Counter()
     self.ingredset_by_recipe = dict()
     self.intensity_by_flavor = Counter()
@@ -48,4 +49,4 @@ class YummlyClient(object):
 
   def find_consensus(self, query):
     results = SearchResults(self.client.search(query).matches)
-    return results.core_ingredients()
+    return results.core_ingredients(), results.num_matches
