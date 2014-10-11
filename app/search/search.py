@@ -12,6 +12,13 @@ app.config.from_envvar('GOULASH_SETTINGS')
 class RecipeSearchForm(Form):
 	recipe = TextField('Recipe')
 
+@app.route('/search/<dish>')
+def canned_search(dish):
+	yc = YummlyClient(app.config['API_ID'], app.config['API_KEY'])
+	result = yc.find_consensus(dish)
+	message = str(', '.join(result))
+	return redirect(url_for('results', message=message))
+
 @app.route('/search', methods=['GET', 'POST'])
 def search():
 	form = RecipeSearchForm(request.form)
@@ -20,7 +27,10 @@ def search():
 		result = yc.find_consensus(form.recipe.data)
 		message = str(', '.join(result))
 		return redirect(url_for('results', message=message))
-	return render_template('search/search.html', form=form)
+	examples = [('goulash', url_for('canned_search', dish='goulash')),
+							('beef stroganoff', url_for('canned_search', dish='beef stroganoff')),
+							('caprese salad', url_for('canned_search', dish='caprese salad'))]
+	return render_template('search/search.html', form=form, examples=examples)
 
 @app.route('/results')
 def results():

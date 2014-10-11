@@ -5,14 +5,20 @@
 {% block content %}
 <body>
   <div class="container">
-    <h1>What's the essense of a dish?</h1>
-    <p class="lead">What makes goulash goulash? And a caprese salad a caprese salad?</p>
+    <h1>What makes goulash goulash? </h1>
+    <p class="lead">This app explores recipes from a variety of sources in order to discover the essential character of a dish.</p>
     <form class="form form-horizontal" method=post action="/search">
       <dl>
         {{ render_field(form.recipe) }}
       </dl>
       <p><input type=submit value=Search>
       </form>
-  </div>
-</body>
-{% endblock %}
+      <div "panel panel-info">
+        <B>Example searches: </B><BR>
+        {% for example in examples %}
+          <li><a href="{{ example[1] }}">{{example[0]}}</a></li>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+  {% endblock %}
