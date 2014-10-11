@@ -12,8 +12,11 @@ class SearchResults(object):
     self.intensity_by_flavor = Counter()
     self.images = []
     self.parse()
+    self.avg_time = 0.0
 
   def parse(self):
+    time = 0
+    num_matches = len(self.matches)
     for match in self.matches:
       self.ingredset_by_recipe[match.id] = match.ingredients
       for i in match.ingredients:
@@ -27,6 +30,11 @@ class SearchResults(object):
             pass
       if match.smallImageUrls:
         print match.smallImageUrls
+      if match.totalTimeInSeconds:
+        time += match.totalTimeInSeconds
+    self.avg_time = (time/num_matches)/60
+    print "avg time "+str(self.avg_time)+" minutes"
+
 
   def extract_flavors(self):
     flavor_count = 0 #default count for recipes without a flavor profile
