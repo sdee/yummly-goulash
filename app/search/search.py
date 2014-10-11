@@ -22,9 +22,6 @@ def search():
 		return redirect(url_for('results', message=message))
 	return render_template('search/search.html', form=form)
 
-#canned search
-# @app.route('/search/', methods=['GET', 'POST'])
-
 @app.route('/results')
 def results():
 	message = request.args['message']

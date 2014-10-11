@@ -35,24 +35,6 @@ class SearchResults(object):
     self.avg_time = (time/num_matches)/60
     print "avg time "+str(self.avg_time)+" minutes"
 
-
-  def extract_flavors(self):
-    flavor_count = 0 #default count for recipes without a flavor profile
-    for match in self.matches:
-      flavors = ['salty', 'meaty', 'piquant', 'bitter', 'sour', 'sweet']
-      for flavor in flavors:
-          try:
-            self.intensity_by_flavor[flavor] += match.flavors[flavor]
-            flavor_count+=1
-          except:
-            pass
-
-  def extract_ingredients(self):
-    for match in self.matches:
-      self.ingredset_by_recipe[match.id] = match.ingredients
-      for i in match.ingredients:
-        self.cnt[i.encode('utf-8').strip()]+=1
-
   def core_ingredients(self):
     return [i[0].encode('utf-8').strip() for i in self.cnt.most_common(10)]
 
