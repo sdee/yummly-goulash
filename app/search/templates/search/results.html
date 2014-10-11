@@ -1,0 +1,13 @@
+{% extends "bootstrap/base.html" %}
+{% from "search/_formhelpers.html" import render_field%}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/fixes.html" as fixes %}
+{% block content %}
+<!doctype html>
+<title>Results</title>
+<body>
+  <div class="container">
+    <b>Result:</b> {{message}}
+  </div>
+</body>
+{% endblock %}

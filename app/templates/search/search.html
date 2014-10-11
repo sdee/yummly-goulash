@@ -1,0 +1,12 @@
+{% extends "bootstrap/base.html" %}
+{% from "_formhelpers.html" import render_field%}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/fixes.html" as fixes %}
+{% block content %}
+<form class="form form-horizontal" method=post action="/search">
+  <dl>
+   {{ render_field(form.recipe) }}
+  </dl>
+  <p><input type=submit value=Search>
+</form>
+{% endblock %}
