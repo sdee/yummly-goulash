@@ -12,8 +12,9 @@ class SearchResults(object):
     self.ingredset_by_recipe = dict()
     self.intensity_by_flavor = Counter()
     self.images = []
-    self.parse()
     self.avg_time = 0.0
+    self.photos = []
+    self.parse()
 
   def parse(self):
     time = 0
@@ -30,11 +31,10 @@ class SearchResults(object):
           except:
             pass
       if match.smallImageUrls:
-        print match.smallImageUrls
+        self.photos.extend(match.smallImageUrls)
       if match.totalTimeInSeconds:
         time += match.totalTimeInSeconds
     self.avg_time = (time/num_matches)/60
-    print "avg time "+str(self.avg_time)+" minutes"
 
   def core_ingredients(self):
     return [i[0].encode('utf-8').strip() for i in self.cnt.most_common(10)]
@@ -49,4 +49,4 @@ class YummlyClient(object):
 
   def find_consensus(self, query):
     results = SearchResults(self.client.search(query).matches)
-    return results.core_ingredients(), results.num_matches
+    return results.core_ingredients(), results
