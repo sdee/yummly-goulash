@@ -24,6 +24,7 @@ class SearchResults(object):
       for i in match.ingredients:
         self.cnt[i.encode('utf-8').strip()]+=1
       flavors = ['salty', 'meaty', 'piquant', 'bitter', 'sour', 'sweet']
+      #need to track simple distribution
       for flavor in flavors:
           try:
             self.intensity_by_flavor[flavor] += match.flavors[flavor]
